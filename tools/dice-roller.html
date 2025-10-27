@@ -85,8 +85,8 @@
         const diceOnes = document.getElementById('diceOnes');
 
         // --- Animation Settings ---
-        const animationDuration = 1500; // 1.5 seconds of "fast roll"
-        const modalCloseTime = 4000;    // 4 seconds total modal time
+        const animationDuration = 1000; // 1.5 seconds of "fast roll"
+        const modalCloseTime = 3500;    // 4 seconds total modal time
 
         // --- Core Functions ---
         
@@ -140,7 +140,8 @@
          * Average: 50ms (Range: 25ms - 75ms)
          */
         function getFastClickTime() {
-            return 125;
+            // 25ms base + 0-50ms random
+            return 100;
         }
 
         /**
@@ -148,7 +149,8 @@
          * Average: 200ms (Range: 100ms - 300ms)
          */
         function getSlowClickTime() {
-            return 150 + (200 * Math.random());
+            // 100ms base + 0-200ms random
+            return 150 + (100 * Math.random());
         }
 
         /**
@@ -164,8 +166,9 @@
             modal.style.display = 'flex';
             
             const startTime = Date.now();
-            let currentTens = 0;
-            let currentOnes = 0;
+            // Start dice at random numbers
+            let currentTens = Math.floor(Math.random() * 10);
+            let currentOnes = Math.floor(Math.random() * 10);
 
             /**
              * Phase 1: Fast sequential "rolling"
@@ -183,14 +186,15 @@
                     
                     setTimeout(fastSequentialRoll, getFastClickTime());
                 } else {
-                    // Fast phase is over, start "clicking" from the *current* number
-                    clickToFinalNumber(diceTens, currentTens, finalTens);
+                    // Fast phase is over, start "clicking" from the *current* number.
+                    // Both dice will now roll to their final number independently.
                     clickToFinalNumber(diceOnes, currentOnes, finalOnes);
+                    clickToFinalNumber(diceTens, currentTens, finalTens);
                 }
             }
             
             /**
-             * Phase 2: Slow "clicking" to the final number
+             * Phase 2: Slow "clicking" to the final number.
              */
             function clickToFinalNumber(element, currentNum, finalNum) {
                 // Keep cycling 0-9
@@ -201,7 +205,7 @@
                     // Keep clicking at the slower speed
                     setTimeout(() => clickToFinalNumber(element, currentNum, finalNum), getSlowClickTime());
                 }
-                // When currentNum === finalNum, the timeout chain for this die stops.
+                // Final number reached. Do nothing more.
             }
 
             // 5. Start the animation
@@ -223,7 +227,5 @@
     </script>
 </body>
 </html>
-
-
 
 
