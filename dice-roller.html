@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WFRP 4e SL Calculator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for number input arrows */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 flex justify-center items-start min-h-screen pt-12 md:pt-20 px-4">
+
+    <!-- Calculator Card -->
+    <div class="bg-gray-800 shadow-2xl rounded-lg p-6 md:p-8 w-full max-w-md">
+        
+        <h1 class="text-2xl font-bold text-center text-white mb-6">
+            WFRP 4e SL Calculator
+        </h1>
+
+        <form id="slForm" class="space-y-5">
+            <!-- Skill Input -->
+            <div>
+                <label for="skill" class="block text-sm font-medium text-gray-300 mb-1">Skill</label>
+                <input type="number" id="skill" name="skill" placeholder="Enter your Skill (e.g., 45)"
+                       class="w-full bg-gray-700 border border-gray-600 text-white rounded-md p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+            </div>
+
+            <!-- Roll Input -->
+            <div>
+                <label for="roll" class="block text-sm font-medium text-gray-300 mb-1">Roll</label>
+                <input type="number" id="roll" name="roll" placeholder="Enter your d100 Roll (e.g., 32)"
+                       class="w-full bg-gray-700 border border-gray-600 text-white rounded-md p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+            </div>
+
+            <!-- Calculate Button -->
+            <button type="submit" id="calculateButton"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition duration-200 ease-in-out transform hover:-translate-y-0.5 shadow-lg">
+                Calculate
+            </button>
+        </form>
+
+        <!-- Result Display -->
+        <div id="resultContainer" class="mt-6 text-center" style="display: none;">
+            <p class="text-lg text-gray-400">Success Level</p>
+            <p id="resultDisplay" class="text-5xl font-bold"></p>
+            <p id="critFumbleNote" class="text-sm text-gray-500 mt-3"></p>
+        </div>
+
+    </div>
+
+    <script>
+        const slForm = document.getElementById('slForm');
+        const skillInput = document.getElementById('skill');
+        const rollInput = document.getElementById('roll');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const critFumbleNote = document.getElementById('critFumbleNote');
+
+        // Function to calculate SL
+        function calculateSL() {
+            const skill = parseInt(skillInput.value);
+            const roll = parseInt(rollInput.value);
+
+            // Validate inputs
+            if (isNaN(skill) || isNaN(roll)) {
+                resultContainer.style.display = 'none'; // Hide result if inputs are invalid
+                return;
+            }
+
+            // Calculate tens digits
+            // Handle 1-9 as tens digit 0, and 100 (00) as tens digit 0
+            const skillTens = (skill === 100) ? 0 : Math.floor(skill / 10);
+            const rollTens = (roll === 100) ? 0 : Math.floor(roll / 10);
+
+            let sl = 0;
+            let prefix = '';
+            let note = '';
+            
+            const isDouble = (roll % 11 === 0) || (roll === 100);
+
+            // Check for Success or Failure
+            if (roll <= skill) {
+                // SUCCESS
+                sl = skillTens - rollTens;
+                prefix = '+';
+                resultDisplay.className = "text-5xl font-bold text-green-400"; // Green for success
+                
+                if (isDouble || roll === 1) {
+                    note = 'Critical Success!';
+                }
+
+            } else {
+                // FAILURE
+                sl = rollTens - skillTens;
+                prefix = '-';
+                resultDisplay.className = "text-5xl font-bold text-red-400"; // Red for failure
+                
+                if (isDouble || roll === 100) {
+                    note = 'Fumble!';
+                }
+            }
+
+            // Display the result
+            resultDisplay.textContent = `${prefix}${sl}`;
+            critFumbleNote.textContent = note;
+            resultContainer.style.display = 'block';
+        }
+
+        // --- Event Listeners ---
+
+        // Calculate on form submit
+        slForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent form from reloading page
+            calculateSL();
+        });
+
+        // Also calculate on any input change for real-time feedback
+        skillInput.addEventListener('input', calculateSL);
+        rollInput.addEventListener('input', calculateSL);
+    </script>
+
+</body>
+</html>
