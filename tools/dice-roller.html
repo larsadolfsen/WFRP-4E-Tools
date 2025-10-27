@@ -85,8 +85,6 @@
         const diceOnes = document.getElementById('diceOnes');
 
         // --- Animation Settings ---
-        const fastClickTime = 75;       // 75ms per number for "fast roll"
-        const slowClickTime = 150;      // 150ms per number for final "click"
         const animationDuration = 1500; // 1.5 seconds of "fast roll"
         const modalCloseTime = 4000;    // 4 seconds total modal time
 
@@ -138,6 +136,22 @@
         // --- Animation Functions ---
 
         /**
+         * Returns a randomized click time for the fast roll.
+         * Average: 50ms (Range: 25ms - 75ms)
+         */
+        function getFastClickTime() {
+            return 125;
+        }
+
+        /**
+         * Returns a randomized click time for the slow roll.
+         * Average: 200ms (Range: 100ms - 300ms)
+         */
+        function getSlowClickTime() {
+            return 150 + (200 * Math.random());
+        }
+
+        /**
          * Handles the entire dice roll animation sequence
          */
         function animateRoll() {
@@ -167,9 +181,9 @@
                     diceTens.textContent = currentTens;
                     diceOnes.textContent = currentOnes;
                     
-                    setTimeout(fastSequentialRoll, fastClickTime);
+                    setTimeout(fastSequentialRoll, getFastClickTime());
                 } else {
-                    // Fast phase is over, start "clicking" to the final number
+                    // Fast phase is over, start "clicking" from the *current* number
                     clickToFinalNumber(diceTens, currentTens, finalTens);
                     clickToFinalNumber(diceOnes, currentOnes, finalOnes);
                 }
@@ -185,7 +199,7 @@
                 
                 if (currentNum !== finalNum) {
                     // Keep clicking at the slower speed
-                    setTimeout(() => clickToFinalNumber(element, currentNum, finalNum), slowClickTime);
+                    setTimeout(() => clickToFinalNumber(element, currentNum, finalNum), getSlowClickTime());
                 }
                 // When currentNum === finalNum, the timeout chain for this die stops.
             }
@@ -209,4 +223,7 @@
     </script>
 </body>
 </html>
+
+
+
 
