@@ -67,7 +67,12 @@
         </div>
     </div>
 
-    <script type="module">
+    <!-- 
+      Removed type="module" from the script tag. 
+      This is often the reason scripts fail to load on GitHub Pages 
+      if they aren't actually using ES6 modules.
+    -->
+    <script>
         // --- Get Elements ---
         const skillInput = document.getElementById('skill');
         const rollInput = document.getElementById('roll');
