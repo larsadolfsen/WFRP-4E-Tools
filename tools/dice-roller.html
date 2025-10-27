@@ -141,7 +141,7 @@
          */
         function getFastClickTime() {
             // 25ms base + 0-50ms random
-            return 100;
+            return 100 + (Math.random() * 50);
         }
 
         /**
@@ -150,7 +150,7 @@
          */
         function getSlowClickTime() {
             // 100ms base + 0-200ms random
-            return 100 + (100 * Math.random());
+            return 100 + (Math.random() * 200);
         }
 
         /**
@@ -170,6 +170,12 @@
             let currentTens = Math.floor(Math.random() * 10);
             let currentOnes = Math.floor(Math.random() * 10);
 
+            // --- FIX for GitHub Pages Race Condition ---
+            // Set the initial random numbers first, *before* starting the loop.
+            diceTens.textContent = currentTens;
+            diceOnes.textContent = currentOnes;
+            // --- END FIX ---
+
             /**
              * Phase 1: Fast sequential "rolling"
              */
@@ -179,15 +185,13 @@
                 if (elapsed < animationDuration) {
                     // Still in the "fast roll" phase
                     
-                    // --- FIX ---
-                    // Set the text content to the *current* number first.
-                    diceTens.textContent = currentTens;
-                    diceOnes.textContent = currentOnes;
-                    
-                    // Then, increment for the *next* loop.
+                    // Increment for the *next* loop first
                     currentTens = (currentTens + 1) % 10;
                     currentOnes = (currentOnes + 1) % 10;
-                    // --- END FIX ---
+                    
+                    // Set the text content to the *new* number
+                    diceTens.textContent = currentTens;
+                    diceOnes.textContent = currentOnes;
                     
                     setTimeout(fastSequentialRoll, getFastClickTime());
                 } else {
@@ -214,7 +218,11 @@
             }
 
             // 5. Start the animation
-            fastSequentialRoll();
+            // --- FIX for GitHub Pages Race Condition ---
+            // Schedule the *first* frame with a setTimeout
+            // This gives the browser time to render the initial numbers set above.
+            setTimeout(fastSequentialRoll, getFastClickTime());
+            // --- END FIX ---
 
             // 6. Set modal to close after total time
             setTimeout(() => {
@@ -232,6 +240,7 @@
     </script>
 </body>
 </html>
+
 
 
 
