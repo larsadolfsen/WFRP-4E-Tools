@@ -150,7 +150,7 @@
          */
         function getSlowClickTime() {
             // 100ms base + 0-200ms random
-            return 150 + (100 * Math.random());
+            return 100 + (100 * Math.random());
         }
 
         /**
@@ -178,11 +178,16 @@
 
                 if (elapsed < animationDuration) {
                     // Still in the "fast roll" phase
-                    currentTens = (currentTens + 1) % 10;
-                    currentOnes = (currentOnes + 1) % 10;
                     
+                    // --- FIX ---
+                    // Set the text content to the *current* number first.
                     diceTens.textContent = currentTens;
                     diceOnes.textContent = currentOnes;
+                    
+                    // Then, increment for the *next* loop.
+                    currentTens = (currentTens + 1) % 10;
+                    currentOnes = (currentOnes + 1) % 10;
+                    // --- END FIX ---
                     
                     setTimeout(fastSequentialRoll, getFastClickTime());
                 } else {
@@ -227,5 +232,6 @@
     </script>
 </body>
 </html>
+
 
 
