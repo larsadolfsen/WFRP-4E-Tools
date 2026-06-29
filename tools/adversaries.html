@@ -19,13 +19,13 @@
         <header class="mb-6">
             <p class="mb-2 text-sm text-gray-400"><a href="../index.html" class="text-blue-400 hover:text-blue-300">Tools</a></p>
             <h1 class="text-3xl font-bold text-white">WFRP 4e Adversaries</h1>
-            <p class="mt-2 max-w-3xl text-gray-400">Searchable adversary stat blocks extracted from the provided bestiary screenshots. Descriptions are intentionally omitted.</p>
+            <p class="mt-2 max-w-3xl text-gray-400">Searchable adversary reference with short descriptions, stat blocks, traits, and optional traits from the provided bestiary screenshots.</p>
         </header>
 
         <section class="mb-6 grid gap-3 md:grid-cols-[1fr_220px]">
             <label class="block">
                 <span class="mb-1 block text-sm font-medium text-gray-400">Search</span>
-                <input id="searchInput" type="search" placeholder="Name, group, trait, optional trait..." class="w-full rounded-lg border border-gray-700 bg-gray-900 p-3 text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30">
+                <input id="searchInput" type="search" placeholder="Name, description, group, trait..." class="w-full rounded-lg border border-gray-700 bg-gray-900 p-3 text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30">
             </label>
             <label class="block">
                 <span class="mb-1 block text-sm font-medium text-gray-400">Group</span>
@@ -47,6 +47,7 @@
                 name: 'Ghosts',
                 group: 'Undead',
                 page: 331,
+                description: 'Restless spirits bound by unfinished business, dangerous because they pass through barriers and attack the courage of the living.',
                 stats: { M: 6, WS: 30, BS: '-', S: 30, T: 30, I: 10, Ag: 30, Dex: 20, Int: 15, WP: 15, Fel: '-', W: 10 },
                 traits: ['Dark Vision', 'Ethereal', 'Fear 2', 'Undead', 'Unstable', 'Weapon+6'],
                 optional: ['Bestial', 'Fury', 'Hatred', 'Swarm', 'Territorial']
@@ -55,6 +56,7 @@
                 name: 'Gors',
                 group: 'Beastmen',
                 page: 331,
+                description: 'Common Beastmen raiders who haunt the wild places and charge into battle with horns, axes, and pack violence.',
                 stats: { M: 4, WS: 45, BS: 30, S: 35, T: 45, I: 30, Ag: 35, Dex: 25, Int: 25, WP: 30, Fel: 25, W: 14 },
                 traits: ['Arboreal', 'Armour 1', 'Fury', 'Horns+6', 'Night Vision', 'Weapon+7'],
                 optional: ['Armour 2', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Infected', 'Infestation', 'Mutation', 'Size (Large)', 'Spellcaster (Beasts)']
@@ -63,6 +65,7 @@
                 name: 'Ungors',
                 group: 'Beastmen',
                 page: 332,
+                description: 'Smaller Beastmen often used as scouts, skirmishers, or expendable fighters by the stronger members of the herd.',
                 stats: { M: 4, WS: 35, BS: 30, S: 30, T: 35, I: 30, Ag: 35, Dex: 25, Int: 25, WP: 35, Fel: 25, W: 12 },
                 traits: ['Arboreal', 'Night Vision', 'Weapon+6'],
                 optional: ['Armour 1', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Infected', 'Infestation', 'Mutation', 'Ranged+7 (25)', 'Size (Small)']
@@ -71,6 +74,7 @@
                 name: 'Minotaurs',
                 group: 'Beastmen',
                 page: 332,
+                description: 'Huge bull-headed brutes that smash through battle lines and turn a raid into a massacre.',
                 stats: { M: 6, WS: 45, BS: 25, S: 44, T: 45, I: 20, Ag: 35, Dex: 25, Int: 20, WP: 30, Fel: 15, W: 32 },
                 traits: ['Horns+9', 'Hungry', 'Night Vision', 'Size (Large)', 'Weapon+9'],
                 optional: ['Arboreal', 'Belligerent', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Fury', 'Infected', 'Infestation', 'Mutation']
@@ -79,6 +83,7 @@
                 name: 'Bray-Shaman',
                 group: 'Beastmen',
                 page: 332,
+                description: 'A Beastman spellcaster and herd prophet who supports raids with dark magic and savage influence.',
                 stats: { M: 4, WS: 40, BS: '-', S: 30, T: 45, I: 40, Ag: 35, Dex: 25, Int: 30, WP: 50, Fel: 30, W: 16 },
                 traits: ['Arboreal', 'Corruption (Minor)', 'Fury', 'Horns+6', 'Night Vision', 'Spellcaster (Beasts, Any Chaos, Death, or Shadow)', 'Weapon+7'],
                 optional: ['Disease (Packer’s Pox)', 'Infected', 'Infestation', 'Mutation', 'Size (Large)']
@@ -87,6 +92,7 @@
                 name: 'Mutants',
                 group: 'Cultists, the Lost and the Damned',
                 page: 333,
+                description: 'Corrupted victims whose warped bodies make them unpredictable threats with highly variable abilities.',
                 stats: { M: 4, WS: 30, BS: 30, S: 30, T: 30, I: 30, Ag: 30, Dex: 30, Int: 30, WP: 30, Fel: 30, W: 12 },
                 traits: ['Corruption (Minor)', 'Mutation', 'Weapon+7'],
                 optional: ['All Creature Traits']
@@ -95,6 +101,7 @@
                 name: 'Cultists',
                 group: 'Cultists, the Lost and the Damned',
                 page: 333,
+                description: 'Secret devotees of Chaos who hide among ordinary people until called to sabotage, ritual, or violence.',
                 stats: { M: 4, WS: 30, BS: 30, S: 30, T: 30, I: 30, Ag: 30, Dex: 30, Int: 30, WP: 30, Fel: 30, W: 12 },
                 traits: ['Weapon+6'],
                 optional: ['Armour 1', 'Corruption (Minor)', 'Mutation', 'Spellcaster (Chaos)']
@@ -103,6 +110,7 @@
                 name: 'Chaos Warriors',
                 group: 'Slaves to Darkness',
                 page: 334,
+                description: 'Heavily armoured champions of the Dark Gods, built for direct combat and hard to bring down.',
                 stats: { M: 4, WS: 55, BS: 30, S: 45, T: 45, I: 45, Ag: 55, Dex: 30, Int: 35, WP: 55, Fel: 25, W: 19 },
                 traits: ['Armour 5', 'Champion', 'Corruption (Minor)', 'Weapon+8'],
                 optional: ['Belligerent', 'Disease', 'Distracting', 'Frenzy', 'Mental Corruption', 'Mutation', 'Spellcaster (Chaos)']
@@ -111,6 +119,7 @@
                 name: 'Bloodletters of Khorne',
                 group: 'Daemons, the Gibbering Hosts',
                 page: 335,
+                description: 'Daemons of slaughter that rush into melee with relentless fury and little concern for defence.',
                 stats: { M: 5, WS: 55, BS: 35, S: 45, T: 35, I: 60, Ag: 40, Dex: 30, Int: 25, WP: 70, Fel: 15, W: 19 },
                 traits: ['Armour 5', 'Champion', 'Claws', 'Corruption (Moderate)', 'Daemonic 8+', 'Fear 3', 'Frenzy', 'Horns+8', 'Painless', 'Unstable', 'Weapon+9'],
                 optional: []
@@ -119,6 +128,7 @@
                 name: 'Daemonettes of Slaanesh',
                 group: 'Daemons, the Gibbering Hosts',
                 page: 335,
+                description: 'Swift and cruel Slaanesh daemons that combine unnatural grace with precise close combat attacks.',
                 stats: { M: 4, WS: 60, BS: 50, S: 40, T: 30, I: 65, Ag: 60, Dex: 35, Int: 30, WP: 70, Fel: 45, W: 17 },
                 traits: ['Champion', 'Corruption (Moderate)', 'Daemonic 8+', 'Distracting', 'Fear 2', 'Night Vision', 'Unstable', 'Weapon+9'],
                 optional: []
@@ -128,6 +138,7 @@
                 subtitle: 'Daemon Prince of Slaanesh',
                 group: 'Daemon Princes',
                 page: 336,
+                description: 'A Slaanesh daemon prince with terrifying speed, magical power, and overwhelming combat skill.',
                 stats: { M: 6, WS: 95, BS: 110, S: 115, T: 120, I: 100, Ag: 95, Dex: 40, Int: 70, WP: 85, Fel: 85, W: 86 },
                 traits: ['Armour 1', 'Champion', 'Corruption (Major)', 'Daemonic 8+', 'Distracting', 'Horns+15', 'Night Vision', 'Size (Large)', 'Spellcaster (Slaanesh)', 'Terror 3', 'Unstable', 'Weapon+16'],
                 optional: []
@@ -137,6 +148,7 @@
                 subtitle: 'Daemon Prince of Nurgle',
                 group: 'Daemon Princes',
                 page: 336,
+                description: 'A Nurgle daemon prince, slow but nearly unkillable, spreading disease, corrosion, and corruption.',
                 stats: { M: 4, WS: 70, BS: 35, S: 120, T: 150, I: 50, Ag: 20, Dex: 30, Int: 85, WP: 120, Fel: 50, W: 108 },
                 traits: ['Armour 4', 'Breath+12 (Corrosion)', 'Corruption (Major)', 'Daemonic 7+', 'Dark Vision', 'Disease (Itching Pox)', 'Horns+14', 'Infected', 'Infested', 'Size (Large)', 'Spellcaster (Nurgle)', 'Terror 3', 'Unstable', 'Weapon+15'],
                 optional: []
@@ -145,6 +157,7 @@
                 name: 'Clanrats',
                 group: 'The Loathsome Ratmen',
                 page: 337,
+                description: 'Basic Skaven fighters, cowardly alone but dangerous in numbers, ambushes, and dirty fighting.',
                 stats: { M: 5, WS: 30, BS: 30, S: 30, T: 30, I: 40, Ag: 35, Dex: 30, Int: 30, WP: 20, Fel: 20, W: 11 },
                 traits: ['Armour 2', 'Infected', 'Night Vision', 'Weapon+7'],
                 optional: ['Disease (Ratte Fever)', 'Mutation', 'Skittish', 'Stealthy', 'Tracker']
@@ -153,6 +166,7 @@
                 name: 'Stormvermin',
                 group: 'The Loathsome Ratmen',
                 page: 337,
+                description: 'Elite Skaven soldiers with better armour, discipline, and skill than common clanrats.',
                 stats: { M: 5, WS: 45, BS: 35, S: 35, T: 35, I: 55, Ag: 50, Dex: 30, Int: 30, WP: 25, Fel: 20, W: 11 },
                 traits: ['Armour 4', 'Infected', 'Night Vision', 'Weapon+8'],
                 optional: ['Disease (Ratte Fever)', 'Mutation', 'Tracker']
@@ -161,6 +175,7 @@
                 name: 'Rat Ogres',
                 group: 'The Loathsome Ratmen',
                 page: 337,
+                description: 'Mutated Skaven shock beasts, dim-witted but devastating when driven into close combat.',
                 stats: { M: 5, WS: 35, BS: 10, S: 55, T: 45, I: 35, Ag: 45, Dex: 25, Int: 10, WP: 25, Fel: 15, W: 30 },
                 traits: ['Armour 1', 'Infected', 'Night Vision', 'Size (Large)', 'Stupid', 'Weapon+9'],
                 optional: ['Corruption (Minor)', 'Dark Vision', 'Disease (Ratte Fever)', 'Infestation', 'Mutation', 'Tail+8', 'Tracker', 'Trained (Broken, Guard, Mount, War)']
@@ -202,6 +217,7 @@
             return [
                 adversary.name,
                 adversary.subtitle || '',
+                adversary.description || '',
                 adversary.group,
                 ...(adversary.traits || []),
                 ...(adversary.optional || [])
@@ -227,6 +243,7 @@
                         </div>
                         <div class="text-sm text-gray-400">${adversary.group} · p. ${adversary.page}</div>
                     </div>
+                    <p class="mb-4 text-sm leading-6 text-gray-300">${adversary.description}</p>
                     ${renderStats(adversary.stats)}
                     <div class="mt-4">
                         <h3 class="mb-2 text-sm font-semibold text-gray-300">Traits</h3>
