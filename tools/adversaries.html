@@ -44,6 +44,141 @@
 
         const adversaries = [
             {
+                name: 'Manticores',
+                group: 'Monsters',
+                page: 323,
+                description: 'A lion shaped brute drops from above with bat wings beating the air into hot gusts. Its mane smells of musk and carrion, and its barbed tail clicks like a drawn dagger.',
+                stats: { M: 6, WS: 55, BS: '-', S: 55, T: 55, I: 50, Ag: 65, Dex: '-', Int: 10, WP: 35, Fel: '-', W: 72 },
+                traits: ['Armour 2', 'Bestial', 'Bite+9', 'Flight 80', 'Size (Enormous)', 'Tail+8', 'Territorial', 'Venom', 'Weapon+9'],
+                optional: ['Hatred (Predators)', 'Mutant', 'Trained (Broken, Magic, Mount)']
+            },
+            {
+                name: 'Pegasi',
+                group: 'Monsters',
+                page: 323,
+                description: 'A white horse with swan broad wings cuts through the sky, stirring dust and loose straw beneath it. It smells of clean sweat, wind, and cold mountain air.',
+                stats: { M: 8, WS: 35, BS: '-', S: 45, T: 40, I: 30, Ag: 45, Dex: '-', Int: 20, WP: 25, Fel: '-', W: 28 },
+                traits: ['Flight 100', 'Size (Large)', 'Stride', 'Weapon+7'],
+                optional: ['Trained (Broken, Drive, Magic, Mount, War)']
+            },
+            {
+                name: 'Trolls',
+                group: 'Monsters',
+                page: 324,
+                description: 'A hulking green shape lurches forward, drooling bile and dragging a weapon too heavy for a man. The stink is stomach acid, swamp mud, old fish, and unwashed hide.',
+                stats: { M: 6, WS: 30, BS: 15, S: 55, T: 45, I: 10, Ag: 15, Dex: 15, Int: 10, WP: 20, Fel: 5, W: 38 },
+                traits: ['Armour 2', 'Bite+8', 'Die Hard', 'Infected', 'Regenerate', 'Size (Large)', 'Stupid', 'Tough', 'Vomit', 'Weapon+9'],
+                optional: ['Aquatic', 'Bestial', 'Frenzy', 'Hungry', 'Infestation', 'Magic Resistance', 'Mutation', 'Night Vision', 'Painless', 'Stealth', 'Swamp-strider']
+            },
+            {
+                name: 'Wyverns',
+                group: 'Monsters',
+                page: 325,
+                description: 'Leathery wings snap open and a reptile stink rolls over the ground. Its talons scrape stone, its throat hisses wetly, and its venomous jaws glisten.',
+                stats: { M: 4, WS: 55, BS: '-', S: 60, T: 55, I: 15, Ag: 45, Dex: '-', Int: 10, WP: 50, Fel: '-', W: 84 },
+                traits: ['Armour 2', 'Bestial', 'Flight 90', 'Size (Enormous)', 'Venom', 'Weapon +10'],
+                optional: ['Breath (Venom)', 'Horns', 'Mount', 'Tail+9', 'Trained (Broken, Guard, Magic, Mount, War)']
+            },
+            {
+                name: 'Orcs',
+                group: 'The Greenskin Hordes',
+                page: 325,
+                description: 'A thick green brute shoulders forward under crude armour, tusks wet and shield splintered. It smells of sweat, iron, sour beer, and battlefield mud.',
+                stats: { M: 4, WS: 35, BS: 30, S: 35, T: 45, I: 20, Ag: 25, Dex: 20, Int: 25, WP: 35, Fel: 20, W: 14 },
+                traits: ['Armour 3', 'Belligerent', 'Die Hard', 'Infected', 'Night Vision', 'Weapon+8'],
+                optional: ['Painless', 'Ranged+8 (50)', 'Size (Large)']
+            },
+            {
+                name: 'Goblins',
+                group: 'The Greenskin Hordes',
+                page: 326,
+                description: 'A shrill laugh comes before the flash of a knife. Small green faces leer from cover, reeking of smoke, damp rags, bad teeth, and nervous malice.',
+                stats: { M: 4, WS: 25, BS: 35, S: 30, T: 30, I: 20, Ag: 35, Dex: 30, Int: 30, WP: 20, Fel: 20, W: 11 },
+                traits: ['Animosity', 'Armour 1', 'Afraid (Elves)', 'Infected', 'Night Vision', 'Weapon+7'],
+                optional: ['Arboreal', 'Hatred (Dwarfs)', 'Night Vision', 'Ranged+7 (25)', 'Venom']
+            },
+            {
+                name: 'Snotlings',
+                group: 'The Greenskin Hordes',
+                page: 326,
+                description: 'Tiny green bodies swarm around ankles, giggling, biting, and waving stolen junk. They smell of fungus, rotten scraps, and damp earth.',
+                stats: { M: 4, WS: 25, BS: 15, S: 25, T: 20, I: 20, Ag: 30, Dex: '-', Int: 15, WP: 30, Fel: '-', W: 6 },
+                traits: ['Bestial', 'Infected', 'Night Vision', 'Size (Small)', 'Weapon+4'],
+                optional: ['Broken', 'Swarm', 'Trained (Broken, Fetch, Guard)', 'Venom']
+            },
+            {
+                name: 'Skeletons',
+                group: 'The Restless Dead',
+                page: 327,
+                description: 'Dry bones clack in a dead rhythm as an old blade rises. Dust falls from empty ribs, and the air smells of crypt stone, rust, and stale grave cloth.',
+                stats: { M: 4, WS: 25, BS: 25, S: 30, T: 30, I: 20, Ag: 20, Dex: 25, Int: '-', WP: '-', Fel: '-', W: 12 },
+                traits: ['Armour 2', 'Construct', 'Dark Vision', 'Fear 2', 'Painless', 'Undead', 'Unstable', 'Weapon+7'],
+                optional: ['Corruption (Minor)', 'Infected', 'Territorial']
+            },
+            {
+                name: 'Zombies',
+                group: 'The Restless Dead',
+                page: 328,
+                description: 'A corpse shambles closer with wet steps and slack jaws. It reeks of split flesh, grave mould, and leaking organs, while flies buzz around every torn seam.',
+                stats: { M: 4, WS: 15, BS: '-', S: 30, T: 30, I: 5, Ag: 10, Dex: 15, Int: '-', WP: '-', Fel: '-', W: 12 },
+                traits: ['Construct', 'Dark Vision', 'Fear 2', 'Painless', 'Undead', 'Unstable', 'Weapon+7'],
+                optional: ['Armoured', 'Corruption (Minor)', 'Diseased', 'Distracting', 'Infected', 'Infestation', 'Territorial']
+            },
+            {
+                name: 'Dire Wolves',
+                group: 'The Restless Dead',
+                page: 328,
+                description: 'A huge dead wolf pads from the mist with ribs showing beneath torn hide. Its breath is cold carrion, its claws click softly, and its eyes burn with corpse light.',
+                stats: { M: 9, WS: 30, BS: '-', S: 35, T: 35, I: 30, Ag: 30, Dex: '-', Int: '-', WP: '-', Fel: '-', W: 24 },
+                traits: ['Armour 1', 'Construct', 'Dark Vision', 'Fear 2', 'Size (Large)', 'Stride', 'Tracker', 'Undead', 'Unstable', 'Weapon+6'],
+                optional: ['Corruption (Minor)', 'Distracting', 'Infected', 'Painless', 'Territorial']
+            },
+            {
+                name: 'Crypt Ghouls',
+                group: 'The Restless Dead',
+                page: 329,
+                description: 'A pale, stooped thing crawls from the dark with yellow teeth bared. It smells of fresh graves, rancid meat, and dirty nails, and it hisses between bites.',
+                stats: { M: 4, WS: 30, BS: '-', S: 35, T: 30, I: 30, Ag: 35, Dex: 25, Int: 20, WP: 20, Fel: 5, W: 11 },
+                traits: ['Bite+5', 'Infected', 'Night Vision', 'Weapon+6'],
+                optional: ['Bestial', 'Painless', 'Venom']
+            },
+            {
+                name: 'Varghulfs',
+                group: 'The Restless Dead',
+                page: 329,
+                description: 'A bat winged horror drags itself forward on long claws, all hunger and matted fur. Its breath is hot blood and rotten meat, and its scream is almost human.',
+                stats: { M: 8, WS: 55, BS: '-', S: 55, T: 55, I: 30, Ag: 50, Dex: 20, Int: 10, WP: 60, Fel: '-', W: 42 },
+                traits: ['Armour 1', 'Bestial', 'Bite+8', 'Fear 4', 'Dark Vision', 'Hatred (Living)', 'Hungry', 'Regeneration', 'Size (Large)', 'Terror 3', 'Undead', 'Vampiric', 'Weapon+9'],
+                optional: ['Corruption (Minor)', 'Flight', 'Frenzy', 'Fury', 'Territorial', 'Tracker']
+            },
+            {
+                name: 'Cairn Wraiths',
+                group: 'The Restless Dead',
+                page: 329,
+                description: 'A ragged shadow rises from the cairn, scythe dragging without touching the ground. Frost gathers on skin, and its voice is a grave wind through cracked stone.',
+                stats: { M: 6, WS: 35, BS: '-', S: 35, T: 30, I: 15, Ag: 30, Dex: 25, Int: 25, WP: 50, Fel: 15, W: 14 },
+                traits: ['Chill Grasp', 'Dark Vision', 'Ethereal', 'Terror 3', 'Undead', 'Unstable', 'Weapon+9'],
+                optional: ['Bestial', 'Champion', 'Painless', 'Territorial']
+            },
+            {
+                name: 'Tomb Banshees',
+                group: 'The Restless Dead',
+                page: 330,
+                description: 'A dead woman hangs in the air, hair drifting as if underwater. Her scream makes candle flames flatten, and the room tastes of cold iron and sorrow.',
+                stats: { M: 6, WS: 30, BS: '-', S: 30, T: 30, I: 20, Ag: 30, Dex: 30, Int: 25, WP: 40, Fel: 20, W: 13 },
+                traits: ['Dark Vision', 'Ethereal', 'Ghostly Howl', 'Terror 3', 'Undead', 'Unstable', 'Weapon+7'],
+                optional: ['Bestial', 'Flight', 'Fury', 'Painless', 'Territorial']
+            },
+            {
+                name: 'Vampires',
+                group: 'The Restless Dead',
+                page: 330,
+                description: 'A noble figure smiles with lips too red and eyes too still. The scent is old roses, cold skin, and copper, and every word lands like a hand on the throat.',
+                stats: { M: 6, WS: 60, BS: 40, S: 50, T: 40, I: 50, Ag: 70, Dex: 40, Int: 40, WP: 60, Fel: 40, W: 21 },
+                traits: ['Bite+8', 'Night Vision', 'Undead', 'Vampiric', 'Weapon+9'],
+                optional: ['Bestial', 'Champion', 'Corruption (Minor)', 'Dark Vision', 'Die Hard', 'Distracting', 'Fear', 'Flight', 'Frenzy', 'Fury', 'Hungry', 'Mental Corruption', 'Painless', 'Petrifying Gaze', 'Regeneration', 'Spellcasting (Death or Necromancy)', 'Tracker', 'Wall Crawler']
+            },
+            {
                 name: 'Ghosts',
                 group: 'Undead',
                 page: 331,
@@ -74,7 +209,7 @@
                 name: 'Minotaurs',
                 group: 'Beastmen',
                 page: 332,
-                description: 'A huge bull-headed mass lumbers forward, hot breath steaming from its nostrils. The ground shakes under its hooves and the air tastes of blood and dung.',
+                description: 'A huge bull headed mass lumbers forward, hot breath steaming from its nostrils. The ground shakes under its hooves and the air tastes of blood and dung.',
                 stats: { M: 6, WS: 45, BS: 25, S: 44, T: 45, I: 20, Ag: 35, Dex: 25, Int: 20, WP: 30, Fel: 15, W: 32 },
                 traits: ['Horns+9', 'Hungry', 'Night Vision', 'Size (Large)', 'Weapon+9'],
                 optional: ['Arboreal', 'Belligerent', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Fury', 'Infected', 'Infestation', 'Mutation']
