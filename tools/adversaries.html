@@ -1,321 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang='en' class='h-full'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>WFRP 4e Adversaries</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src='https://cdn.tailwindcss.com'></script>
     <style>
-        body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        }
-        .stat-grid {
-            grid-template-columns: repeat(12, minmax(0, 1fr));
-        }
+        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+        .stat-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-200 min-h-full p-4 md:p-8">
-    <main class="mx-auto max-w-7xl">
-        <header class="mb-6">
-            <p class="mb-2 text-sm text-gray-400"><a href="../index.html" class="text-blue-400 hover:text-blue-300">Tools</a></p>
-            <h1 class="text-3xl font-bold text-white">WFRP 4e Adversaries</h1>
-            <p class="mt-2 max-w-3xl text-gray-400">Searchable adversary reference with sensory descriptions, stat blocks, traits, and optional traits from the provided bestiary screenshots.</p>
+<body class='bg-gray-950 text-gray-200 min-h-full p-4 md:p-8'>
+    <main class='mx-auto max-w-7xl'>
+        <header class='mb-6'>
+            <p class='mb-2 text-sm text-gray-400'><a href='../index.html' class='text-blue-400 hover:text-blue-300'>Tools</a></p>
+            <h1 class='text-3xl font-bold text-white'>WFRP 4e Adversaries</h1>
+            <p class='mt-2 max-w-3xl text-gray-400'>Searchable adversary reference with sensory descriptions, stat blocks, traits, and optional traits from the provided bestiary screenshots.</p>
         </header>
 
-        <section class="mb-6 grid gap-3 md:grid-cols-[1fr_220px]">
-            <label class="block">
-                <span class="mb-1 block text-sm font-medium text-gray-400">Search</span>
-                <input id="searchInput" type="search" placeholder="Name, description, group, trait..." class="w-full rounded-lg border border-gray-700 bg-gray-900 p-3 text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30">
+        <section class='mb-6 grid gap-3 md:grid-cols-[1fr_220px]'>
+            <label class='block'>
+                <span class='mb-1 block text-sm font-medium text-gray-400'>Search</span>
+                <input id='searchInput' type='search' placeholder='Name, description, group, trait...' class='w-full rounded-lg border border-gray-700 bg-gray-900 p-3 text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30'>
             </label>
-            <label class="block">
-                <span class="mb-1 block text-sm font-medium text-gray-400">Group</span>
-                <select id="groupFilter" class="w-full rounded-lg border border-gray-700 bg-gray-900 p-3 text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30">
-                    <option value="all">All groups</option>
+            <label class='block'>
+                <span class='mb-1 block text-sm font-medium text-gray-400'>Group</span>
+                <select id='groupFilter' class='w-full rounded-lg border border-gray-700 bg-gray-900 p-3 text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30'>
+                    <option value='all'>All groups</option>
                 </select>
             </label>
         </section>
 
-        <div id="resultCount" class="mb-4 text-sm text-gray-400"></div>
-        <section id="adversaryList" class="grid gap-4 lg:grid-cols-2"></section>
+        <div id='resultCount' class='mb-4 text-sm text-gray-400'></div>
+        <section id='adversaryList' class='grid gap-4 lg:grid-cols-2'></section>
     </main>
 
+    <script src='adversaries-data.js'></script>
     <script>
         const statOrder = ['M', 'WS', 'BS', 'S', 'T', 'I', 'Ag', 'Dex', 'Int', 'WP', 'Fel', 'W'];
-
-        const adversaries = [
-            {
-                name: 'Manticores',
-                group: 'Monsters',
-                page: 323,
-                description: 'A lion shaped brute drops from above with bat wings beating the air into hot gusts. Its mane smells of musk and carrion, and its barbed tail clicks like a drawn dagger.',
-                stats: { M: 6, WS: 55, BS: '-', S: 55, T: 55, I: 50, Ag: 65, Dex: '-', Int: 10, WP: 35, Fel: '-', W: 72 },
-                traits: ['Armour 2', 'Bestial', 'Bite+9', 'Flight 80', 'Size (Enormous)', 'Tail+8', 'Territorial', 'Venom', 'Weapon+9'],
-                optional: ['Hatred (Predators)', 'Mutant', 'Trained (Broken, Magic, Mount)']
-            },
-            {
-                name: 'Pegasi',
-                group: 'Monsters',
-                page: 323,
-                description: 'A white horse with swan broad wings cuts through the sky, stirring dust and loose straw beneath it. It smells of clean sweat, wind, and cold mountain air.',
-                stats: { M: 8, WS: 35, BS: '-', S: 45, T: 40, I: 30, Ag: 45, Dex: '-', Int: 20, WP: 25, Fel: '-', W: 28 },
-                traits: ['Flight 100', 'Size (Large)', 'Stride', 'Weapon+7'],
-                optional: ['Trained (Broken, Drive, Magic, Mount, War)']
-            },
-            {
-                name: 'Trolls',
-                group: 'Monsters',
-                page: 324,
-                description: 'A hulking green shape lurches forward, drooling bile and dragging a weapon too heavy for a man. The stink is stomach acid, swamp mud, old fish, and unwashed hide.',
-                stats: { M: 6, WS: 30, BS: 15, S: 55, T: 45, I: 10, Ag: 15, Dex: 15, Int: 10, WP: 20, Fel: 5, W: 38 },
-                traits: ['Armour 2', 'Bite+8', 'Die Hard', 'Infected', 'Regenerate', 'Size (Large)', 'Stupid', 'Tough', 'Vomit', 'Weapon+9'],
-                optional: ['Aquatic', 'Bestial', 'Frenzy', 'Hungry', 'Infestation', 'Magic Resistance', 'Mutation', 'Night Vision', 'Painless', 'Stealth', 'Swamp-strider']
-            },
-            {
-                name: 'Wyverns',
-                group: 'Monsters',
-                page: 325,
-                description: 'Leathery wings snap open and a reptile stink rolls over the ground. Its talons scrape stone, its throat hisses wetly, and its venomous jaws glisten.',
-                stats: { M: 4, WS: 55, BS: '-', S: 60, T: 55, I: 15, Ag: 45, Dex: '-', Int: 10, WP: 50, Fel: '-', W: 84 },
-                traits: ['Armour 2', 'Bestial', 'Flight 90', 'Size (Enormous)', 'Venom', 'Weapon +10'],
-                optional: ['Breath (Venom)', 'Horns', 'Mount', 'Tail+9', 'Trained (Broken, Guard, Magic, Mount, War)']
-            },
-            {
-                name: 'Orcs',
-                group: 'The Greenskin Hordes',
-                page: 325,
-                description: 'A thick green brute shoulders forward under crude armour, tusks wet and shield splintered. It smells of sweat, iron, sour beer, and battlefield mud.',
-                stats: { M: 4, WS: 35, BS: 30, S: 35, T: 45, I: 20, Ag: 25, Dex: 20, Int: 25, WP: 35, Fel: 20, W: 14 },
-                traits: ['Armour 3', 'Belligerent', 'Die Hard', 'Infected', 'Night Vision', 'Weapon+8'],
-                optional: ['Painless', 'Ranged+8 (50)', 'Size (Large)']
-            },
-            {
-                name: 'Goblins',
-                group: 'The Greenskin Hordes',
-                page: 326,
-                description: 'A shrill laugh comes before the flash of a knife. Small green faces leer from cover, reeking of smoke, damp rags, bad teeth, and nervous malice.',
-                stats: { M: 4, WS: 25, BS: 35, S: 30, T: 30, I: 20, Ag: 35, Dex: 30, Int: 30, WP: 20, Fel: 20, W: 11 },
-                traits: ['Animosity', 'Armour 1', 'Afraid (Elves)', 'Infected', 'Night Vision', 'Weapon+7'],
-                optional: ['Arboreal', 'Hatred (Dwarfs)', 'Night Vision', 'Ranged+7 (25)', 'Venom']
-            },
-            {
-                name: 'Snotlings',
-                group: 'The Greenskin Hordes',
-                page: 326,
-                description: 'Tiny green bodies swarm around ankles, giggling, biting, and waving stolen junk. They smell of fungus, rotten scraps, and damp earth.',
-                stats: { M: 4, WS: 25, BS: 15, S: 25, T: 20, I: 20, Ag: 30, Dex: '-', Int: 15, WP: 30, Fel: '-', W: 6 },
-                traits: ['Bestial', 'Infected', 'Night Vision', 'Size (Small)', 'Weapon+4'],
-                optional: ['Broken', 'Swarm', 'Trained (Broken, Fetch, Guard)', 'Venom']
-            },
-            {
-                name: 'Skeletons',
-                group: 'The Restless Dead',
-                page: 327,
-                description: 'Dry bones clack in a dead rhythm as an old blade rises. Dust falls from empty ribs, and the air smells of crypt stone, rust, and stale grave cloth.',
-                stats: { M: 4, WS: 25, BS: 25, S: 30, T: 30, I: 20, Ag: 20, Dex: 25, Int: '-', WP: '-', Fel: '-', W: 12 },
-                traits: ['Armour 2', 'Construct', 'Dark Vision', 'Fear 2', 'Painless', 'Undead', 'Unstable', 'Weapon+7'],
-                optional: ['Corruption (Minor)', 'Infected', 'Territorial']
-            },
-            {
-                name: 'Zombies',
-                group: 'The Restless Dead',
-                page: 328,
-                description: 'A corpse shambles closer with wet steps and slack jaws. It reeks of split flesh, grave mould, and leaking organs, while flies buzz around every torn seam.',
-                stats: { M: 4, WS: 15, BS: '-', S: 30, T: 30, I: 5, Ag: 10, Dex: 15, Int: '-', WP: '-', Fel: '-', W: 12 },
-                traits: ['Construct', 'Dark Vision', 'Fear 2', 'Painless', 'Undead', 'Unstable', 'Weapon+7'],
-                optional: ['Armoured', 'Corruption (Minor)', 'Diseased', 'Distracting', 'Infected', 'Infestation', 'Territorial']
-            },
-            {
-                name: 'Dire Wolves',
-                group: 'The Restless Dead',
-                page: 328,
-                description: 'A huge dead wolf pads from the mist with ribs showing beneath torn hide. Its breath is cold carrion, its claws click softly, and its eyes burn with corpse light.',
-                stats: { M: 9, WS: 30, BS: '-', S: 35, T: 35, I: 30, Ag: 30, Dex: '-', Int: '-', WP: '-', Fel: '-', W: 24 },
-                traits: ['Armour 1', 'Construct', 'Dark Vision', 'Fear 2', 'Size (Large)', 'Stride', 'Tracker', 'Undead', 'Unstable', 'Weapon+6'],
-                optional: ['Corruption (Minor)', 'Distracting', 'Infected', 'Painless', 'Territorial']
-            },
-            {
-                name: 'Crypt Ghouls',
-                group: 'The Restless Dead',
-                page: 329,
-                description: 'A pale, stooped thing crawls from the dark with yellow teeth bared. It smells of fresh graves, rancid meat, and dirty nails, and it hisses between bites.',
-                stats: { M: 4, WS: 30, BS: '-', S: 35, T: 30, I: 30, Ag: 35, Dex: 25, Int: 20, WP: 20, Fel: 5, W: 11 },
-                traits: ['Bite+5', 'Infected', 'Night Vision', 'Weapon+6'],
-                optional: ['Bestial', 'Painless', 'Venom']
-            },
-            {
-                name: 'Varghulfs',
-                group: 'The Restless Dead',
-                page: 329,
-                description: 'A bat winged horror drags itself forward on long claws, all hunger and matted fur. Its breath is hot blood and rotten meat, and its scream is almost human.',
-                stats: { M: 8, WS: 55, BS: '-', S: 55, T: 55, I: 30, Ag: 50, Dex: 20, Int: 10, WP: 60, Fel: '-', W: 42 },
-                traits: ['Armour 1', 'Bestial', 'Bite+8', 'Fear 4', 'Dark Vision', 'Hatred (Living)', 'Hungry', 'Regeneration', 'Size (Large)', 'Terror 3', 'Undead', 'Vampiric', 'Weapon+9'],
-                optional: ['Corruption (Minor)', 'Flight', 'Frenzy', 'Fury', 'Territorial', 'Tracker']
-            },
-            {
-                name: 'Cairn Wraiths',
-                group: 'The Restless Dead',
-                page: 329,
-                description: 'A ragged shadow rises from the cairn, scythe dragging without touching the ground. Frost gathers on skin, and its voice is a grave wind through cracked stone.',
-                stats: { M: 6, WS: 35, BS: '-', S: 35, T: 30, I: 15, Ag: 30, Dex: 25, Int: 25, WP: 50, Fel: 15, W: 14 },
-                traits: ['Chill Grasp', 'Dark Vision', 'Ethereal', 'Terror 3', 'Undead', 'Unstable', 'Weapon+9'],
-                optional: ['Bestial', 'Champion', 'Painless', 'Territorial']
-            },
-            {
-                name: 'Tomb Banshees',
-                group: 'The Restless Dead',
-                page: 330,
-                description: 'A dead woman hangs in the air, hair drifting as if underwater. Her scream makes candle flames flatten, and the room tastes of cold iron and sorrow.',
-                stats: { M: 6, WS: 30, BS: '-', S: 30, T: 30, I: 20, Ag: 30, Dex: 30, Int: 25, WP: 40, Fel: 20, W: 13 },
-                traits: ['Dark Vision', 'Ethereal', 'Ghostly Howl', 'Terror 3', 'Undead', 'Unstable', 'Weapon+7'],
-                optional: ['Bestial', 'Flight', 'Fury', 'Painless', 'Territorial']
-            },
-            {
-                name: 'Vampires',
-                group: 'The Restless Dead',
-                page: 330,
-                description: 'A noble figure smiles with lips too red and eyes too still. The scent is old roses, cold skin, and copper, and every word lands like a hand on the throat.',
-                stats: { M: 6, WS: 60, BS: 40, S: 50, T: 40, I: 50, Ag: 70, Dex: 40, Int: 40, WP: 60, Fel: 40, W: 21 },
-                traits: ['Bite+8', 'Night Vision', 'Undead', 'Vampiric', 'Weapon+9'],
-                optional: ['Bestial', 'Champion', 'Corruption (Minor)', 'Dark Vision', 'Die Hard', 'Distracting', 'Fear', 'Flight', 'Frenzy', 'Fury', 'Hungry', 'Mental Corruption', 'Painless', 'Petrifying Gaze', 'Regeneration', 'Spellcasting (Death or Necromancy)', 'Tracker', 'Wall Crawler']
-            },
-            {
-                name: 'Ghosts',
-                group: 'Undead',
-                page: 331,
-                description: 'The air turns cold and wet as a pale shape drifts through walls. It smells of dust, grave soil, and old smoke, and its voice is a thin whisper beside the ear.',
-                stats: { M: 6, WS: 30, BS: '-', S: 30, T: 30, I: 10, Ag: 30, Dex: 20, Int: 15, WP: 15, Fel: '-', W: 10 },
-                traits: ['Dark Vision', 'Ethereal', 'Fear 2', 'Undead', 'Unstable', 'Weapon+6'],
-                optional: ['Bestial', 'Fury', 'Hatred', 'Swarm', 'Territorial']
-            },
-            {
-                name: 'Gors',
-                group: 'Beastmen',
-                page: 331,
-                description: 'Hooves crack twigs in the dark and horned silhouettes push through the trees. They stink of damp fur, sour sweat, blood, and old leather.',
-                stats: { M: 4, WS: 45, BS: 30, S: 35, T: 45, I: 30, Ag: 35, Dex: 25, Int: 25, WP: 30, Fel: 25, W: 14 },
-                traits: ['Arboreal', 'Armour 1', 'Fury', 'Horns+6', 'Night Vision', 'Weapon+7'],
-                optional: ['Armour 2', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Infected', 'Infestation', 'Mutation', 'Size (Large)', 'Spellcaster (Beasts)']
-            },
-            {
-                name: 'Ungors',
-                group: 'Beastmen',
-                page: 332,
-                description: 'Small horned shapes skulk at the edge of sight, chittering and scraping spearpoints on stone. Their smell is rank fur, wet leaves, and fear.',
-                stats: { M: 4, WS: 35, BS: 30, S: 30, T: 35, I: 30, Ag: 35, Dex: 25, Int: 25, WP: 35, Fel: 25, W: 12 },
-                traits: ['Arboreal', 'Night Vision', 'Weapon+6'],
-                optional: ['Armour 1', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Infected', 'Infestation', 'Mutation', 'Ranged+7 (25)', 'Size (Small)']
-            },
-            {
-                name: 'Minotaurs',
-                group: 'Beastmen',
-                page: 332,
-                description: 'A huge bull headed mass lumbers forward, hot breath steaming from its nostrils. The ground shakes under its hooves and the air tastes of blood and dung.',
-                stats: { M: 6, WS: 45, BS: 25, S: 44, T: 45, I: 20, Ag: 35, Dex: 25, Int: 20, WP: 30, Fel: 15, W: 32 },
-                traits: ['Horns+9', 'Hungry', 'Night Vision', 'Size (Large)', 'Weapon+9'],
-                optional: ['Arboreal', 'Belligerent', 'Corruption (Minor)', 'Disease (Packer’s Pox)', 'Fury', 'Infected', 'Infestation', 'Mutation']
-            },
-            {
-                name: 'Bray-Shaman',
-                group: 'Beastmen',
-                page: 332,
-                description: 'Bones and fetishes clatter from its staff as it mutters words that make teeth ache. It reeks of smoke, old blood, crushed herbs, and animal musk.',
-                stats: { M: 4, WS: 40, BS: '-', S: 30, T: 45, I: 40, Ag: 35, Dex: 25, Int: 30, WP: 50, Fel: 30, W: 16 },
-                traits: ['Arboreal', 'Corruption (Minor)', 'Fury', 'Horns+6', 'Night Vision', 'Spellcaster (Beasts, Any Chaos, Death, or Shadow)', 'Weapon+7'],
-                optional: ['Disease (Packer’s Pox)', 'Infected', 'Infestation', 'Mutation', 'Size (Large)']
-            },
-            {
-                name: 'Mutants',
-                group: 'Cultists, the Lost and the Damned',
-                page: 333,
-                description: 'Their bodies are wrong in ways the eye struggles to hold. Skin splits, limbs twitch, voices gurgle or whine, and the smell is sweat, pus, and panic.',
-                stats: { M: 4, WS: 30, BS: 30, S: 30, T: 30, I: 30, Ag: 30, Dex: 30, Int: 30, WP: 30, Fel: 30, W: 12 },
-                traits: ['Corruption (Minor)', 'Mutation', 'Weapon+7'],
-                optional: ['All Creature Traits']
-            },
-            {
-                name: 'Cultists',
-                group: 'Cultists, the Lost and the Damned',
-                page: 333,
-                description: 'They look almost ordinary until the knives come out and the chanting starts. Candle smoke, cheap incense, sweat, and hidden rot cling to them.',
-                stats: { M: 4, WS: 30, BS: 30, S: 30, T: 30, I: 30, Ag: 30, Dex: 30, Int: 30, WP: 30, Fel: 30, W: 12 },
-                traits: ['Weapon+6'],
-                optional: ['Armour 1', 'Corruption (Minor)', 'Mutation', 'Spellcaster (Chaos)']
-            },
-            {
-                name: 'Chaos Warriors',
-                group: 'Slaves to Darkness',
-                page: 334,
-                description: 'Blackened plate grinds with each step, heavy as a funeral bell. Their armour smells of hot iron, old gore, and oil, and their silence is worse than shouting.',
-                stats: { M: 4, WS: 55, BS: 30, S: 45, T: 45, I: 45, Ag: 55, Dex: 30, Int: 35, WP: 55, Fel: 25, W: 19 },
-                traits: ['Armour 5', 'Champion', 'Corruption (Minor)', 'Weapon+8'],
-                optional: ['Belligerent', 'Disease', 'Distracting', 'Frenzy', 'Mental Corruption', 'Mutation', 'Spellcaster (Chaos)']
-            },
-            {
-                name: 'Bloodletters of Khorne',
-                group: 'Daemons, the Gibbering Hosts',
-                page: 335,
-                description: 'Red bodies flicker like wounds in firelight, blades hissing as they move. They smell of scorched brass and fresh blood, and their snarls beat like war drums.',
-                stats: { M: 5, WS: 55, BS: 35, S: 45, T: 35, I: 60, Ag: 40, Dex: 30, Int: 25, WP: 70, Fel: 15, W: 19 },
-                traits: ['Armour 5', 'Champion', 'Claws', 'Corruption (Moderate)', 'Daemonic 8+', 'Fear 3', 'Frenzy', 'Horns+8', 'Painless', 'Unstable', 'Weapon+9'],
-                optional: []
-            },
-            {
-                name: 'Daemonettes of Slaanesh',
-                group: 'Daemons, the Gibbering Hosts',
-                page: 335,
-                description: 'They move with impossible grace, claws clicking softly before they strike. The air around them is sweet, metallic, and dizzying, like perfume spilled over blood.',
-                stats: { M: 4, WS: 60, BS: 50, S: 40, T: 30, I: 65, Ag: 60, Dex: 35, Int: 30, WP: 70, Fel: 45, W: 17 },
-                traits: ['Champion', 'Corruption (Moderate)', 'Daemonic 8+', 'Distracting', 'Fear 2', 'Night Vision', 'Unstable', 'Weapon+9'],
-                optional: []
-            },
-            {
-                name: 'Slenderthigh Whiptongue',
-                subtitle: 'Daemon Prince of Slaanesh',
-                group: 'Daemon Princes',
-                page: 336,
-                description: 'A towering, elegant horror unfolds with a smile too wide to trust. Every movement whispers silk, razors, and perfume, while the air presses warm against the skin.',
-                stats: { M: 6, WS: 95, BS: 110, S: 115, T: 120, I: 100, Ag: 95, Dex: 40, Int: 70, WP: 85, Fel: 85, W: 86 },
-                traits: ['Armour 1', 'Champion', 'Corruption (Major)', 'Daemonic 8+', 'Distracting', 'Horns+15', 'Night Vision', 'Size (Large)', 'Spellcaster (Slaanesh)', 'Terror 3', 'Unstable', 'Weapon+16'],
-                optional: []
-            },
-            {
-                name: 'Fr’hough Mournbreath',
-                subtitle: 'Daemon Prince of Nurgle',
-                group: 'Daemon Princes',
-                page: 336,
-                description: 'It arrives in a wet chorus of flies, wheezing laughter, and dripping flesh. The stench is sour rot, mould, bile, and fever sweat thick enough to taste.',
-                stats: { M: 4, WS: 70, BS: 35, S: 120, T: 150, I: 50, Ag: 20, Dex: 30, Int: 85, WP: 120, Fel: 50, W: 108 },
-                traits: ['Armour 4', 'Breath+12 (Corrosion)', 'Corruption (Major)', 'Daemonic 7+', 'Dark Vision', 'Disease (Itching Pox)', 'Horns+14', 'Infected', 'Infested', 'Size (Large)', 'Spellcaster (Nurgle)', 'Terror 3', 'Unstable', 'Weapon+15'],
-                optional: []
-            },
-            {
-                name: 'Clanrats',
-                group: 'The Loathsome Ratmen',
-                page: 337,
-                description: 'Red eyes blink from the dark, followed by skittering claws and the scrape of rusty blades. They smell of sewer water, wet fur, and stolen meat.',
-                stats: { M: 5, WS: 30, BS: 30, S: 30, T: 30, I: 40, Ag: 35, Dex: 30, Int: 30, WP: 20, Fel: 20, W: 11 },
-                traits: ['Armour 2', 'Infected', 'Night Vision', 'Weapon+7'],
-                optional: ['Disease (Ratte Fever)', 'Mutation', 'Skittish', 'Stealthy', 'Tracker']
-            },
-            {
-                name: 'Stormvermin',
-                group: 'The Loathsome Ratmen',
-                page: 337,
-                description: 'Armoured ratmen march from the gloom in tighter formation, halberds rising as one. Their gear clinks, their teeth chatter, and the sewer stink follows them.',
-                stats: { M: 5, WS: 45, BS: 35, S: 35, T: 35, I: 55, Ag: 50, Dex: 30, Int: 30, WP: 25, Fel: 20, W: 11 },
-                traits: ['Armour 4', 'Infected', 'Night Vision', 'Weapon+8'],
-                optional: ['Disease (Ratte Fever)', 'Mutation', 'Tracker']
-            },
-            {
-                name: 'Rat Ogres',
-                group: 'The Loathsome Ratmen',
-                page: 337,
-                description: 'A swollen brute of muscle, scars, and rat flesh strains against its handlers. Its breath is hot and foul, its chains rattle, and its roar shakes dust from the walls.',
-                stats: { M: 5, WS: 35, BS: 10, S: 55, T: 45, I: 35, Ag: 45, Dex: 25, Int: 10, WP: 25, Fel: 15, W: 30 },
-                traits: ['Armour 1', 'Infected', 'Night Vision', 'Size (Large)', 'Stupid', 'Weapon+9'],
-                optional: ['Corruption (Minor)', 'Dark Vision', 'Disease (Ratte Fever)', 'Infestation', 'Mutation', 'Tail+8', 'Tracker', 'Trained (Broken, Guard, Mount, War)']
-            }
-        ];
+        const adversaries = window.adversariesData || [];
 
         const searchInput = document.getElementById('searchInput');
         const groupFilter = document.getElementById('groupFilter');
@@ -332,20 +55,20 @@
 
         function renderStats(stats) {
             return `
-                <div class="overflow-x-auto rounded-lg border border-gray-700">
-                    <div class="grid stat-grid min-w-[680px] bg-gray-900 text-center text-xs font-semibold text-gray-400">
-                        ${statOrder.map(stat => `<div class="border-r border-gray-700 p-2 last:border-r-0">${stat}</div>`).join('')}
+                <div class='overflow-x-auto rounded-lg border border-gray-700'>
+                    <div class='grid stat-grid min-w-[680px] bg-gray-900 text-center text-xs font-semibold text-gray-400'>
+                        ${statOrder.map(stat => `<div class='border-r border-gray-700 p-2 last:border-r-0'>${stat}</div>`).join('')}
                     </div>
-                    <div class="grid stat-grid min-w-[680px] bg-gray-800 text-center text-sm text-white">
-                        ${statOrder.map(stat => `<div class="border-r border-gray-700 p-2 last:border-r-0">${stats[stat]}</div>`).join('')}
+                    <div class='grid stat-grid min-w-[680px] bg-gray-800 text-center text-sm text-white'>
+                        ${statOrder.map(stat => `<div class='border-r border-gray-700 p-2 last:border-r-0'>${stats[stat]}</div>`).join('')}
                     </div>
                 </div>
             `;
         }
 
         function renderTags(items) {
-            if (!items || items.length === 0) return '<span class="text-gray-500">None listed</span>';
-            return items.map(item => `<span class="rounded-full bg-gray-700 px-2.5 py-1 text-xs text-gray-200">${item}</span>`).join(' ');
+            if (!items || items.length === 0) return `<span class='text-gray-500'>None listed</span>`;
+            return items.map(item => `<span class='rounded-full bg-gray-700 px-2.5 py-1 text-xs text-gray-200'>${item}</span>`).join(' ');
         }
 
         function searchableText(adversary) {
@@ -370,23 +93,23 @@
 
             resultCount.textContent = `${filtered.length} of ${adversaries.length} adversaries shown`;
             adversaryList.innerHTML = filtered.map(adversary => `
-                <article class="rounded-2xl border border-gray-800 bg-gray-900 p-4 shadow-xl">
-                    <div class="mb-3 flex flex-col gap-1 md:flex-row md:items-start md:justify-between">
+                <article class='rounded-2xl border border-gray-800 bg-gray-900 p-4 shadow-xl'>
+                    <div class='mb-3 flex flex-col gap-1 md:flex-row md:items-start md:justify-between'>
                         <div>
-                            <h2 class="text-xl font-semibold text-white">${adversary.name}</h2>
-                            ${adversary.subtitle ? `<p class="text-sm text-gray-400">${adversary.subtitle}</p>` : ''}
+                            <h2 class='text-xl font-semibold text-white'>${adversary.name}</h2>
+                            ${adversary.subtitle ? `<p class='text-sm text-gray-400'>${adversary.subtitle}</p>` : ''}
                         </div>
-                        <div class="text-sm text-gray-400">${adversary.group} · p. ${adversary.page}</div>
+                        <div class='text-sm text-gray-400'>${adversary.group} · p. ${adversary.page}</div>
                     </div>
-                    <p class="mb-4 text-sm leading-6 text-gray-300">${adversary.description}</p>
+                    <p class='mb-4 text-sm leading-6 text-gray-300'>${adversary.description}</p>
                     ${renderStats(adversary.stats)}
-                    <div class="mt-4">
-                        <h3 class="mb-2 text-sm font-semibold text-gray-300">Traits</h3>
-                        <div class="flex flex-wrap gap-2">${renderTags(adversary.traits)}</div>
+                    <div class='mt-4'>
+                        <h3 class='mb-2 text-sm font-semibold text-gray-300'>Traits</h3>
+                        <div class='flex flex-wrap gap-2'>${renderTags(adversary.traits)}</div>
                     </div>
-                    <div class="mt-4">
-                        <h3 class="mb-2 text-sm font-semibold text-gray-300">Optional</h3>
-                        <div class="flex flex-wrap gap-2">${renderTags(adversary.optional)}</div>
+                    <div class='mt-4'>
+                        <h3 class='mb-2 text-sm font-semibold text-gray-300'>Optional</h3>
+                        <div class='flex flex-wrap gap-2'>${renderTags(adversary.optional)}</div>
                     </div>
                 </article>
             `).join('');
