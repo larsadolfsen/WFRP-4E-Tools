@@ -1,0 +1,62 @@
+window.npcsData = [
+    {
+        id: 'black-bella',
+        name: 'Black Bella',
+        role: 'Human Brigand',
+        species: 'Human',
+        career: 'Brigand / Outlaw',
+        scenario: 'Bestiary',
+        tags: ['Bestiary', 'Named NPC', 'Human', 'Brigand'],
+        page: 313,
+        description: 'A hard eyed highwaywoman steps from the road mist, pistol steady and cloak snapping in the wind. She smells of powder smoke, wet leather, horse sweat, and cold resolve.',
+        motivation: 'Revenge, robbery, and survival after her life was broken by violence.',
+        stats: { M: 4, WS: 32, BS: 35, S: 41, T: 45, I: 30, Ag: 25, Dex: 29, Int: 27, WP: 34, Fel: 33, W: 19 },
+        traits: ['Animosity (the Rich, Beastmen)', 'Arboreal', 'Armour (Light 2)', 'Prejudice (Bailiffs, Lawyers)', 'Ranged+8 (50)', 'Brute', 'Hardy', 'Weapon+8'],
+        notes: ['Built as a WFRP 4e named NPC from the provided bestiary example.']
+    },
+    {
+        id: 'pol-dankels',
+        name: 'Pol Dankels',
+        role: 'Human Witch',
+        species: 'Human',
+        career: 'Witch / Hedge Spellcaster',
+        scenario: 'Bestiary',
+        tags: ['Bestiary', 'Named NPC', 'Human', 'Witch', 'Spellcaster'],
+        page: 313,
+        description: 'A wild bearded man grips a staff as sparks gutter around his hands. The air smells of burnt hair, candle tallow, old wool, and rain on ashes.',
+        motivation: 'Desperate to survive long enough to protect or recover his children.',
+        stats: { M: 4, WS: 24, BS: 26, S: 27, T: 46, I: 49, Ag: 26, Dex: 34, Int: 65, WP: 47, Fel: 44, W: 15 },
+        traits: ['Cunning', 'Clever', 'Prejudice (Sigmarites)', 'Spellcaster (Witch)', 'Tough', 'Weapon+5'],
+        notes: ['Built as a WFRP 4e named NPC from the provided bestiary example.']
+    },
+    {
+        id: 'slenderthigh-whiptongue',
+        name: 'Slenderthigh Whiptongue',
+        role: 'Daemon Prince of Slaanesh',
+        species: 'Daemon',
+        career: 'Daemon Prince',
+        scenario: 'Bestiary',
+        tags: ['Bestiary', 'Named NPC', 'Daemon', 'Slaanesh', 'Daemon Prince'],
+        page: 336,
+        description: 'A towering, elegant horror unfolds with a smile too wide to trust. Every movement whispers silk, razors, and perfume, while the air presses warm against the skin.',
+        motivation: 'Temptation, domination, and the pursuit of exquisite ruin.',
+        stats: { M: 6, WS: 95, BS: 110, S: 115, T: 120, I: 100, Ag: 95, Dex: 40, Int: 70, WP: 85, Fel: 85, W: 86 },
+        traits: ['Armour 1', 'Champion', 'Corruption (Major)', 'Daemonic 8+', 'Distracting', 'Horns+15', 'Night Vision', 'Size (Large)', 'Spellcaster (Slaanesh)', 'Terror 3', 'Unstable', 'Weapon+16'],
+        notes: ['Named adversary promoted into the NPC list because it has a unique name.']
+    },
+    {
+        id: 'frhough-mournbreath',
+        name: 'Fr’hough Mournbreath',
+        role: 'Daemon Prince of Nurgle',
+        species: 'Daemon',
+        career: 'Daemon Prince',
+        scenario: 'Bestiary',
+        tags: ['Bestiary', 'Named NPC', 'Daemon', 'Nurgle', 'Daemon Prince'],
+        page: 336,
+        description: 'It arrives in a wet chorus of flies, wheezing laughter, and dripping flesh. The stench is sour rot, mould, bile, and fever sweat thick enough to taste.',
+        motivation: 'Decay, endurance, and the generous spread of pestilence.',
+        stats: { M: 4, WS: 70, BS: 35, S: 120, T: 150, I: 50, Ag: 20, Dex: 30, Int: 85, WP: 120, Fel: 50, W: 108 },
+        traits: ['Armour 4', 'Breath+12 (Corrosion)', 'Corruption (Major)', 'Daemonic 7+', 'Dark Vision', 'Disease (Itching Pox)', 'Horns+14', 'Infected', 'Infested', 'Size (Large)', 'Spellcaster (Nurgle)', 'Terror 3', 'Unstable', 'Weapon+15'],
+        notes: ['Named adversary promoted into the NPC list because it has a unique name.']
+    }
+];
